@@ -1,0 +1,166 @@
+#!/usr/bin/env python
+
+Import('env')
+Import('env_modules')
+
+env_newton = env_modules.Clone()
+
+# Thirdparty source files
+
+thirdparty_dir = "#thirdparty/newton-dynamics/"
+
+newton_dynamics_src = [
+    # API
+      "dgNewton/Newton.cpp"
+    , "dgNewton/NewtonClass.cpp"
+
+    # Core
+    , "dgCore/dg.cpp"
+    , "dgCore/dgAABBPolygonSoup.cpp"
+    , "dgCore/dgConvexHull3d.cpp"
+    , "dgCore/dgConvexHull4d.cpp"
+    , "dgCore/dgCRC.cpp"
+    , "dgCore/dgDebug.cpp"
+    , "dgCore/dgDelaunayTetrahedralization.cpp"
+    , "dgCore/dgGeneralMatrix.cpp"
+    , "dgCore/dgGeneralVector.cpp"
+    , "dgCore/dgGoogol.cpp"
+    , "dgCore/dgIntersections.cpp"
+    , "dgCore/dgMatrix.cpp"
+    , "dgCore/dgMemory.cpp"
+    , "dgCore/dgMutexThread.cpp"
+    , "dgCore/dgNode.cpp"
+    , "dgCore/dgObb.cpp"
+    , "dgCore/dgPolygonSoupBuilder.cpp"
+    , "dgCore/dgPolyhedra.cpp"
+    , "dgCore/dgPolyhedraMassProperties.cpp"
+    , "dgCore/dgProfiler.cpp"
+    , "dgCore/dgQuaternion.cpp"
+    , "dgCore/dgRandom.cpp"
+    , "dgCore/dgRef.cpp"
+    , "dgCore/dgRefCounter.cpp"
+    , "dgCore/dgSmallDeterminant.cpp"
+    , "dgCore/dgThread.cpp"
+    , "dgCore/dgThreadHive.cpp"
+    , "dgCore/dgTree.cpp"
+    , "dgCore/dgTypes.cpp"
+
+    # Physics
+    , "dgPhysics/dgBallConstraint.cpp"
+    , "dgPhysics/dgBilateralConstraint.cpp"
+    , "dgPhysics/dgBody.cpp"
+    , "dgPhysics/dgBodyMasterList.cpp"
+    , "dgPhysics/dgBroadPhase.cpp"
+    , "dgPhysics/dgBroadPhaseAggregate.cpp"
+    , "dgPhysics/dgBroadPhaseMixed.cpp"
+    , "dgPhysics/dgBroadPhaseSegregated.cpp"
+    , "dgPhysics/dgCollision.cpp"
+    , "dgPhysics/dgCollisionBox.cpp"
+    , "dgPhysics/dgCollisionBVH.cpp"
+    , "dgPhysics/dgCollisionCapsule.cpp"
+    , "dgPhysics/dgCollisionChamferCylinder.cpp"
+    , "dgPhysics/dgCollisionCompound.cpp"
+    , "dgPhysics/dgCollisionCompoundFractured.cpp"
+    , "dgPhysics/dgCollisionCone.cpp"
+    , "dgPhysics/dgCollisionConvex.cpp"
+    , "dgPhysics/dgCollisionConvexHull.cpp"
+    , "dgPhysics/dgCollisionConvexPolygon.cpp"
+    , "dgPhysics/dgCollisionCylinder.cpp"
+    , "dgPhysics/dgCollisionDeformableMesh.cpp"
+    , "dgPhysics/dgCollisionDeformableSolidMesh.cpp"
+    , "dgPhysics/dgCollisionHeightField.cpp"
+    , "dgPhysics/dgCollisionIncompressibleParticles.cpp"
+    , "dgPhysics/dgCollisionInstance.cpp"
+    , "dgPhysics/dgCollisionLumpedMassParticles.cpp"
+    , "dgPhysics/dgCollisionMassSpringDamperSystem.cpp"
+    , "dgPhysics/dgCollisionMesh.cpp"
+    , "dgPhysics/dgCollisionNull.cpp"
+    , "dgPhysics/dgCollisionScene.cpp"
+    , "dgPhysics/dgCollisionSphere.cpp"
+    , "dgPhysics/dgCollisionUserMesh.cpp"
+    , "dgPhysics/dgConstraint.cpp"
+    , "dgPhysics/dgContact.cpp"
+    , "dgPhysics/dgContactSolver.cpp"
+    , "dgPhysics/dgCorkscrewConstraint.cpp"
+    , "dgPhysics/dgDynamicBody.cpp"
+    , "dgPhysics/dgHingeConstraint.cpp"
+    , "dgPhysics/dgInverseDynamics.cpp"
+    , "dgPhysics/dgKinematicBody.cpp"
+    , "dgPhysics/dgNarrowPhaseCollision.cpp"
+    , "dgPhysics/dgSkeletonContainer.cpp"
+    , "dgPhysics/dgSlidingConstraint.cpp"
+    , "dgPhysics/dgUniversalConstraint.cpp"
+    , "dgPhysics/dgUpVectorConstraint.cpp"
+    , "dgPhysics/dgUserConstraint.cpp"
+    , "dgPhysics/dgWorld.cpp"
+    , "dgPhysics/dgWorldDynamicUpdate.cpp"
+    , "dgPhysics/dgWorldDynamicsParallelSolver.cpp"
+    , "dgPhysics/dgWorldDynamicsSimpleSolver.cpp"
+    , "dgPhysics/dgWorldPlugins.cpp"
+
+    # MeshUtil
+    , "dgMeshUtil/dgMeshEffect1.cpp"
+    , "dgMeshUtil/dgMeshEffect2.cpp"
+    , "dgMeshUtil/dgMeshEffect3.cpp"
+    , "dgMeshUtil/dgMeshEffect4.cpp"
+    , "dgMeshUtil/dgMeshEffect5.cpp"
+    , "dgMeshUtil/dgMeshEffect6.cpp"
+]
+
+thirdparty_sources = [thirdparty_dir + file for file in newton_dynamics_src]
+
+# TODO: NEWTON_BUILD_SINGLE_THREADED => -DDG_USE_THREAD_EMULATION
+# TODO: NEWTON_DOUBLE_PRECISION => -D_NEWTON_USE_DOUBLE
+# TODO: NEWTON_WITH_SSE_PLUGIN
+# TODO: NEWTON_WITH_SSE4_PLUGIN
+# TODO: NEWTON_WITH_AVX_PLUGIN
+# TODO: NEWTON_WITH_AVX2_PLUGIN
+# TODO: 64-bit vs 32-bit => BUILD_64
+
+# TODO: PLATFORM APPLE
+#       CXX_FLAGS -fms-extensions -std=c++11
+
+# TODO: UNIX
+#       BUILD_64 ? -D_POSIX_VER64 : -D_POSIX_VER
+#       -march=native -fPIC
+
+# TODO: MSVC
+#       C/CXX_FLAGS_DEBUG /MTd
+#       C/CXX_FLAGS_RELEASE /MT
+#       BUILD64 ? -D_WIN_64_VER : -D_WIN_32_VER
+#       32-bit only? CXX_FLAGS /arch:SSE2
+#       CXX_FLAGS_DEBUG /Zi /W4 /Od
+#       CXX_FLAGS_RELEASE /Zi /GS- /W4 /Ox /Oi /Ot /Ob2 /fp:fast
+
+env_newton.Append(CPPPATH=[thirdparty_dir + "/dgCore"])
+env_newton.Append(CPPPATH=[thirdparty_dir + "/dgPhysics"])
+env_newton.Append(CPPPATH=[thirdparty_dir + "/dgMeshUtil"])
+
+env_newton.Append(CCFLAGS=['-D_CRT_SECURE_NO_WARNINGS'])
+
+if "platform" in env and env["platform"] in ["osx", "iphone"]:
+    env_newton.Append(CCFLAGS=['-fms-extensions -std=c++11'])
+
+if "platform" in env and env["platform"] in ["osx", "iphone", "android", "x11"]:
+    env_newton.Append(CCFLAGS=['-march=native -fPIC'])
+    if env["bits"] == '32':
+        env_newton.Append(CCFLAGS=['-D_POSIX_VER'])
+    elif env["bits"] == '64':
+        env_newton.Append(CCFLAGS=['-D_POSIX_VER64'])
+
+if env["platform"] == 'windows':
+    env_newton.Append(CCFLAGS=['-D_CRT_SECURE_NO_WARNINGS'])
+    if env["bits"] == '32':
+        env_newton.Append(CCFLAGS=['-D_WIN_32_VER'])
+    elif env["bits"] == '64':
+        env_newton.Append(CCFLAGS=['-D_WIN_64_VER'])
+
+#if env['target'] == "debug" or env['target'] == "release_debug":
+#    env_newton.Append(CCFLAGS=['-DBT_DEBUG'])
+
+env_thirdparty = env_newton.Clone()
+env_thirdparty.disable_warnings()
+env_thirdparty.add_source_files(env.modules_sources, thirdparty_sources)
+
+# Godot source files
+env_newton.add_source_files(env.modules_sources, "*.cpp")
