@@ -9,24 +9,42 @@
 * freely
 */
 
+#include "newtonRID.h"
+#include "newtonSpace.h"
 #include "newton_physics_server.h"
 
 
 RID NewtonPhysicsServer::space_create()
 {
-	dAssert(0);
-	return RID();
+	NewtonSpace* const space = new NewtonSpace;
+	RID rid (m_spaceOwner.make_rid(space));
+	space->set_self(rid);
+	space->_set_physics_server(this);
+	return rid;
 }
 
 void NewtonPhysicsServer::space_set_active(RID p_space, bool p_active)
 {
-	dAssert(0);
+	NewtonSpace* const space = m_spaceOwner.getornull(p_space);
+	ERR_FAIL_COND(!space);
+
+	if (space_is_active(p_space) == p_active) {
+		return;
+	}
+
+	if (p_active) {
+		m_activeSpaces.push_back(space);
+	} else {
+		m_activeSpaces.erase(space);
+	}
 }
 
 bool NewtonPhysicsServer::space_is_active(RID p_space) const
 {
-	dAssert(0);
-	return 0;
+	NewtonSpace* const space = (NewtonSpace*) m_spaceOwner.getornull(p_space);
+	ERR_FAIL_COND_V(!space, false);
+
+	return (m_activeSpaces.find(space) != -1) ? true : false;
 }
 
 void NewtonPhysicsServer::space_set_param(RID p_space, SpaceParameter p_param, real_t p_value)

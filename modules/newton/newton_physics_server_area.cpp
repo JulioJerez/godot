@@ -9,6 +9,7 @@
 * freely
 */
 
+#include "newtonSpace.h"
 #include "newton_physics_server.h"
 
 
@@ -101,7 +102,18 @@ ObjectID NewtonPhysicsServer::area_get_object_instance_id(RID p_area) const
 
 void NewtonPhysicsServer::area_set_param(RID p_area, AreaParameter p_param, const Variant &p_value)
 {
-	dAssert(0);
+	if (m_spaceOwner.owns(p_area)) {
+		NewtonSpace* const space = (NewtonSpace *)m_spaceOwner.getornull(p_area);
+		if (space) {
+			space->set_param(p_param, p_value);
+		}
+	} else {
+		dAssert(0);
+		//NewtonArea* const area = area_owner.getornull(p_area);
+		//ERR_FAIL_COND(!area);
+		//
+		//area->set_param(p_param, p_value);
+	}
 }
 
 void NewtonPhysicsServer::area_set_transform(RID p_area, const Transform &p_transform)

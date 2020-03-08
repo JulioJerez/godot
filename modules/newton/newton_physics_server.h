@@ -13,6 +13,8 @@
 #ifndef NEWTON_PHYSICS_SERVER_H
 #define NEWTON_PHYSICS_SERVER_H
 
+#include "core/rid.h"
+#include "core/rid_owner.h"
 #include "servers/physics_server.h"
 
 
@@ -21,6 +23,8 @@ static void dAssert(int xxx)
 {
 	assert(0);
 }
+
+class NewtonSpace;
 
 class NewtonPhysicsServer: public PhysicsServer
 {
@@ -34,13 +38,13 @@ class NewtonPhysicsServer: public PhysicsServer
 
 	// MISC 
 	void free(RID p_rid);
-
-	void set_active(bool p_active);
+	
 	void init();
-	void step(float p_step);
 	void sync();
-	void flush_queries();
 	void finish();
+	void flush_queries();
+	void step(float p_step);
+	void set_active(bool p_active);
 
 	bool is_flushing_queries() const;
 	int get_process_info(ProcessInfo p_info);
@@ -262,6 +266,11 @@ class NewtonPhysicsServer: public PhysicsServer
 	bool generic_6dof_joint_get_flag(RID p_joint, Vector3::Axis, G6DOFJointAxisFlag p_flag);
 	void generic_6dof_joint_set_precision(RID p_joint, int precision);
 	int generic_6dof_joint_get_precision(RID p_joint);
+
+	private:
+	Vector<NewtonSpace*> m_activeSpaces;
+	mutable RID_PtrOwner<NewtonSpace> m_spaceOwner;
+	bool m_active;
 };
 
 #endif

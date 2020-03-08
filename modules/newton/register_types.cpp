@@ -24,7 +24,7 @@ void register_newton_types()
 {
 #ifndef _3D_DISABLED
 	PhysicsServerManager::register_server("Newton", &createNewtonPhysicsCallback);
-	PhysicsServerManager::set_default_server("Newton", 1);
+	PhysicsServerManager::set_default_server("Newton", 2);
 #endif
 }
 
