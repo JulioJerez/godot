@@ -24,6 +24,8 @@ static void dAssert(int xxx)
 	assert(0);
 }
 
+class NewtonArea;
+class NewtonShape;
 class NewtonSpace;
 
 class NewtonPhysicsServer: public PhysicsServer
@@ -31,6 +33,36 @@ class NewtonPhysicsServer: public PhysicsServer
 	GDCLASS(NewtonPhysicsServer, PhysicsServer)
 
 	public:
+
+	enum GodotObjectFlags
+	{
+		GOF_IS_MONITORING_AREA = 1 << 0
+		// FLAG2 = 1 << 1,
+		// FLAG3 = 1 << 2,
+		// FLAG4 = 1 << 3,
+		// FLAG5 = 1 << 4,
+		// FLAG6 = 1 << 5
+		// etc..
+	};
+
+	enum Triger_Type
+	{
+		TYPE_AREA = 0,
+		TYPE_RIGID_BODY,
+		TYPE_SOFT_BODY,
+		TYPE_KINEMATIC_GHOST_BODY
+	};
+
+	struct InOutEventCallback
+	{
+		ObjectID event_callback_id;
+		StringName event_callback_method;
+
+		InOutEventCallback() {}
+	};
+
+
+
 	NewtonPhysicsServer();
 	~NewtonPhysicsServer();
 
@@ -269,7 +301,10 @@ class NewtonPhysicsServer: public PhysicsServer
 
 	private:
 	Vector<NewtonSpace*> m_activeSpaces;
+	mutable RID_PtrOwner<NewtonArea> m_areaOwner;
 	mutable RID_PtrOwner<NewtonSpace> m_spaceOwner;
+	mutable RID_PtrOwner<NewtonShape> m_shapeOwner;
+	
 	bool m_active;
 };
 

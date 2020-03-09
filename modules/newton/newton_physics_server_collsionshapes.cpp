@@ -9,13 +9,80 @@
 * freely
 */
 
+#include "newtonShape.h"
 #include "newton_physics_server.h"
 
 
 RID NewtonPhysicsServer::shape_create(ShapeType p_shape)
 {
-	dAssert(0);
-	return RID();
+	NewtonShape* shape = NULL;
+	switch (p_shape)
+	{
+		case SHAPE_PLANE:
+		{
+			dAssert(0);
+			//shape = new PlaneShapeNewton;
+			break;
+		} 
+		case SHAPE_SPHERE:
+		{
+			dAssert(0);
+			//shape = new SphereShapeNewton;
+			break;
+		} 
+		case SHAPE_BOX:
+		{
+			dAssert(0);
+			//shape = new BoxShapeNewton;
+			break;
+		} 
+		case SHAPE_CAPSULE:
+		{
+			dAssert(0);
+			//shape = new CapsuleShapeNewton;
+			break;
+		} 
+		case SHAPE_CYLINDER:
+		{
+			dAssert(0);
+			//shape = new CylinderShapeNewton;
+			break;
+		} 
+		case SHAPE_CONVEX_POLYGON:
+		{
+			dAssert(0);
+			//shape = new ConvexPolygonShapeNewton;
+			break;
+		} 
+		case SHAPE_CONCAVE_POLYGON:
+		{
+			dAssert(0);
+			//shape = new ConcavePolygonShapeNewton;
+			break;
+		} 
+		case SHAPE_HEIGHTMAP:
+		{
+			dAssert(0);
+			//shape = new HeightMapShapeNewton;
+			break;
+		} 
+		case SHAPE_RAY:
+		{
+			dAssert(0);
+			//shape = new RayShapeNewton;
+			break;
+		}
+
+		case SHAPE_CUSTOM:
+		default:
+			ERR_FAIL_V(RID());
+			break;
+	}
+
+	RID rid(m_shapeOwner.make_rid(shape));
+	shape->set_self(rid);
+	shape->_set_physics_server(this);
+	return rid;
 }
 
 void NewtonPhysicsServer::shape_set_data(RID p_shape, const Variant &p_data)

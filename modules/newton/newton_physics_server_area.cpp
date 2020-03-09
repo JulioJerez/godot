@@ -9,14 +9,21 @@
 * freely
 */
 
+#include "newtonArea.h"
 #include "newtonSpace.h"
 #include "newton_physics_server.h"
 
 
 RID NewtonPhysicsServer::area_create()
 {
-	dAssert(0);
-	return RID();
+	NewtonArea* const area = new NewtonArea;
+	area->set_collision_layer(1);
+	area->set_collision_mask(1);
+
+	RID rid(m_areaOwner.make_rid(area));
+	area->set_self(rid);
+	area->_set_physics_server(this);
+	return rid;
 }
 
 void NewtonPhysicsServer::area_set_space(RID p_area, RID p_space)
@@ -89,9 +96,14 @@ void NewtonPhysicsServer::area_set_shape_disabled(RID p_area, int p_shape_idx, b
 	dAssert(0);
 }
 
-void NewtonPhysicsServer::area_attach_object_instance_id(RID p_area, ObjectID p_ID)
+void NewtonPhysicsServer::area_attach_object_instance_id(RID p_area, ObjectID p_id)
 {
-	dAssert(0);
+	if (m_spaceOwner.owns(p_area)) {
+		return;
+	}
+	NewtonArea *const area = m_areaOwner.getornull(p_area);
+	ERR_FAIL_COND(!area);
+	area->set_instance_id(p_id);
 }
 
 ObjectID NewtonPhysicsServer::area_get_object_instance_id(RID p_area) const
@@ -108,11 +120,10 @@ void NewtonPhysicsServer::area_set_param(RID p_area, AreaParameter p_param, cons
 			space->set_param(p_param, p_value);
 		}
 	} else {
-		dAssert(0);
-		//NewtonArea* const area = area_owner.getornull(p_area);
-		//ERR_FAIL_COND(!area);
-		//
-		//area->set_param(p_param, p_value);
+		NewtonArea *const area = m_areaOwner.getornull(p_area);
+		ERR_FAIL_COND(!area);
+		
+		area->set_param(p_param, p_value);
 	}
 }
 
@@ -145,17 +156,26 @@ void NewtonPhysicsServer::area_set_collision_layer(RID p_area, uint32_t p_layer)
 
 void NewtonPhysicsServer::area_set_monitorable(RID p_area, bool p_monitorable)
 {
-	dAssert(0);
+	NewtonArea *const area = m_areaOwner.getornull(p_area);
+	ERR_FAIL_COND(!area);
+
+	area->set_monitorable(p_monitorable);
 }
 
 void NewtonPhysicsServer::area_set_monitor_callback(RID p_area, Object *p_receiver, const StringName &p_method)
 {
-	dAssert(0);
+	NewtonArea *const area = m_areaOwner.getornull(p_area);
+	ERR_FAIL_COND(!area);
+
+	area->set_event_callback(TYPE_RIGID_BODY, p_receiver ? p_receiver->get_instance_id() : ObjectID(), p_method);
 }
 
 void NewtonPhysicsServer::area_set_area_monitor_callback(RID p_area, Object *p_receiver, const StringName &p_method)
 {
-	dAssert(0);
+	NewtonArea *const area = m_areaOwner.getornull(p_area);
+	ERR_FAIL_COND(!area);
+
+	area->set_event_callback(TYPE_AREA, p_receiver ? p_receiver->get_instance_id() : ObjectID(), p_method);
 }
 
 void NewtonPhysicsServer::area_set_ray_pickable(RID p_area, bool p_enable)
