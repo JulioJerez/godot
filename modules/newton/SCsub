@@ -6,19 +6,28 @@ Import('env_modules')
 env_newton = env_modules.Clone()
 
 # Thirdparty source files
-#if env['builtin_libogg']:
-#    thirdparty_dir = "#thirdparty/libogg/"
-#    thirdparty_sources = [
-#        "bitwise.c",
-#        "framing.c",
-#    ]
-#    thirdparty_sources = [thirdparty_dir + file for file in thirdparty_sources]
-#
-#    env_ogg.Prepend(CPPPATH=[thirdparty_dir])
-#
-#    env_thirdparty = env_ogg.Clone()
-#    env_thirdparty.disable_warnings()
-#    env_thirdparty.add_source_files(env.modules_sources, thirdparty_sources)
+if env['builtin_newton']:
+    # Thirdparty source files
+    thirdparty_dir = "#thirdparty/newton/"
+
+    env_newton.Append(CPPDEFINES=['_NEWTON_STATIC_LIB'])
+    env_newton.Append(CPPDEFINES=['_CNEWTON_STATIC_LIB'])
+    env_newton.Append(CPPDEFINES=['_DVEHICLE_STATIC_LIB'])
+    env_newton.Append(CPPDEFINES=['_CUSTOM_JOINTS_STATIC_LIB'])
+
+
+    env.Prepend(CPPPATH=[thirdparty_dir + "win32sdk/include/"])
+    #env_newton.Prepend(CPPPATH=[thirdparty_dir + "win32sdk/include/"])
+    #env.Append(LIBPATH=['#thirdparty/newton/win32sdk/include'])
+
+    #if (env_base["bits"] == "32"):
+    #    env_base.Append(LIBPATH=['#thirdparty\newton\win32sdk\include'])
+    #else:
+    #    env_base.Append(LIBPATH=['#thirdparty\newton\win64sdk\include'])
+
+    #thirdparty_sources = [thirdparty_dir + file for file in thirdparty_sources]
+    #env_newton.Prepend(CPPPATH=[thirdparty_dir])
+
 
 # Godot source files
 env_newton.add_source_files(env.modules_sources, "*.cpp")
