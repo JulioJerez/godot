@@ -16,6 +16,8 @@
 #include "core/rid.h"
 #include "core/rid_owner.h"
 
+//#include "newton/Newton.h"
+
 class NewtonPhysicsServer;
 
 
