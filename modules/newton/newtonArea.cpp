@@ -12,6 +12,8 @@
 #include "newtonArea.h"
 #include "newton_physics_server.h"
 
+#include <Newton.h>
+
 // basically these are triggers 
 NewtonArea::NewtonArea() 
 	:newtonRID()

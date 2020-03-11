@@ -15,6 +15,8 @@
 #include "newtonRID.h"
 #include "servers/physics_server.h"
 
+class NewtonWorld;
+
 class NewtonSpace: public newtonRID
 {
 	public:
@@ -25,7 +27,7 @@ class NewtonSpace: public newtonRID
 	void set_param(PhysicsServer::AreaParameter p_param, const Variant &p_value);
 
 	private:
-	//NewtonWorld* m_world; 
+	NewtonWorld* m_world; 
 	Vector3 m_gravityDirection;
 	real_t m_gravityMagnitude;
 };

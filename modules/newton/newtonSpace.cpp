@@ -12,9 +12,12 @@
 #include "newtonSpace.h"
 #include "newton_physics_server.h"
 
+#include <Newton.h>
+
 NewtonSpace::NewtonSpace() 
 	:newtonRID()
 {
+	m_world = NULL;
 	m_gravityMagnitude = 10.0f;
 	m_gravityDirection = Vector3(0.0f, -1.0f, 0.0f);
 }

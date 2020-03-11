@@ -15,7 +15,8 @@ if env['builtin_newton']:
     env_newton.Append(CPPDEFINES=['_DVEHICLE_STATIC_LIB'])
     env_newton.Append(CPPDEFINES=['_CUSTOM_JOINTS_STATIC_LIB'])
 
-    env_newton.Prepend (CPPPATH=["#thirdparty/newton/win32sdk/include/"])
+    env_newton.Prepend (CPPPATH=["#thirdparty/newton/win32sdk/include/newton/"])
+    env_newton.Prepend (CPPPATH=["#thirdparty/newton/win32sdk/include/dgCore/"])
 
     #env.Prepend(CPPPATH=[thirdparty_dir + "win32sdk/include/"])
     #env_newton.Prepend(CPPPATH=[thirdparty_dir + "win32sdk/include/"])
