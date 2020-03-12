@@ -8,27 +8,28 @@ env_newton = env_modules.Clone()
 # Thirdparty source files
 if env['builtin_newton']:
     # Thirdparty source files
-    #thirdparty_dir = "#thirdparty/newton/"
 
+    # add the defines to link to proper libraries
     env_newton.Append(CPPDEFINES=['_NEWTON_STATIC_LIB'])
     env_newton.Append(CPPDEFINES=['_CNEWTON_STATIC_LIB'])
     env_newton.Append(CPPDEFINES=['_DVEHICLE_STATIC_LIB'])
     env_newton.Append(CPPDEFINES=['_CUSTOM_JOINTS_STATIC_LIB'])
 
+    #add include path
     env_newton.Prepend (CPPPATH=["#thirdparty/newton/win32sdk/include/newton/"])
     env_newton.Prepend (CPPPATH=["#thirdparty/newton/win32sdk/include/dgCore/"])
 
-    #env.Prepend(CPPPATH=[thirdparty_dir + "win32sdk/include/"])
-    #env_newton.Prepend(CPPPATH=[thirdparty_dir + "win32sdk/include/"])
-    #env.Append(LIBPATH=['#thirdparty/newton/win32sdk/include'])
+    #add static libraries path to main enviroment for linking
+    if (env["bits"] == "64"):
+        env.Append(LIBPATH=['#thirdparty/newton/win64sdk/lib/'])
+    else: 
+        env.Append(LIBPATH=['#thirdparty/newton/win32sdk/lib/'])
 
-    #if (env_base["bits"] == "32"):
-    #    env_base.Append(LIBPATH=['#thirdparty\newton\win32sdk\include'])
-    #else:
-    #    env_base.Append(LIBPATH=['#thirdparty\newton\win64sdk\include'])
-
-    #thirdparty_sources = [thirdparty_dir + file for file in thirdparty_sources]
-    #env_newton.Prepend(CPPPATH=[thirdparty_dir])
+    #add static libraries 
+    env.Append(LINKFLAGS=['newton.lib'])
+    env.Append(LINKFLAGS=['dgCore.lib'])
+    env.Append(LINKFLAGS=['dgPhysics.lib'])
+    
 
 
 # Godot source files

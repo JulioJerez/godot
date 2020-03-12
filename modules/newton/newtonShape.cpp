@@ -21,3 +21,14 @@ NewtonShape::~NewtonShape()
 {
 }
 
+void NewtonShapeBox::set_data(const Variant& p_data)
+{
+	m_halfExtents = p_data;
+}
+
+void NewtonShapeRay::set_data(const Variant &p_data)
+{
+	Dictionary d = p_data;
+	m_length = d["length"];
+	m_slips_on_slope = d["slips_on_slope"];
+}

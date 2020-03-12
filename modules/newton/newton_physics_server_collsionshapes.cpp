@@ -18,30 +18,33 @@ RID NewtonPhysicsServer::shape_create(ShapeType p_shape)
 	NewtonShape* shape = NULL;
 	switch (p_shape)
 	{
-		case SHAPE_PLANE:
-		{
-			dAssert(0);
-			//shape = new PlaneShapeNewton;
+		case SHAPE_RAY: {
+			shape = new NewtonShapeRay;
 			break;
-		} 
-		case SHAPE_SPHERE:
-		{
-			dAssert(0);
-			//shape = new SphereShapeNewton;
-			break;
-		} 
+		}
 		case SHAPE_BOX:
 		{
-			dAssert(0);
-			//shape = new BoxShapeNewton;
+			shape = new NewtonShapeBox;
 			break;
-		} 
+		}
 		case SHAPE_CAPSULE:
 		{
 			dAssert(0);
 			//shape = new CapsuleShapeNewton;
 			break;
 		} 
+
+
+		case SHAPE_PLANE: {
+			dAssert(0);
+			//shape = new PlaneShapeNewton;
+			break;
+		}
+		case SHAPE_SPHERE: {
+			dAssert(0);
+			//shape = new SphereShapeNewton;
+			break;
+		}
 		case SHAPE_CYLINDER:
 		{
 			dAssert(0);
@@ -66,12 +69,6 @@ RID NewtonPhysicsServer::shape_create(ShapeType p_shape)
 			//shape = new HeightMapShapeNewton;
 			break;
 		} 
-		case SHAPE_RAY:
-		{
-			dAssert(0);
-			//shape = new RayShapeNewton;
-			break;
-		}
 
 		case SHAPE_CUSTOM:
 		default:
@@ -87,7 +84,9 @@ RID NewtonPhysicsServer::shape_create(ShapeType p_shape)
 
 void NewtonPhysicsServer::shape_set_data(RID p_shape, const Variant &p_data)
 {
-	dAssert(0);
+	NewtonShape* const shape = m_shapeOwner.getornull(p_shape);
+	ERR_FAIL_COND(!shape);
+	shape->set_data(p_data);
 }
 
 void NewtonPhysicsServer::shape_set_custom_solver_bias(RID p_shape, real_t p_bias)

@@ -42,6 +42,16 @@ class newtonRID
 		return m_server;
 	}
 
+	void *operator new(size_t size)
+	{
+		return memalloc(size);
+	}
+
+	void operator delete(void *ptr)
+	{
+		memfree(ptr);
+	}
+
 	private:
 	RID m_self;
 	NewtonPhysicsServer* m_server;

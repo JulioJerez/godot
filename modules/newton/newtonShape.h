@@ -21,6 +21,42 @@ class NewtonShape: public newtonRID
 	NewtonShape();
 	virtual ~NewtonShape();
 
+	virtual void set_data(const Variant &p_data) = 0;
+
 	private:
 };
+
+
+class NewtonShapeBox: public NewtonShape
+{
+	public:
+	NewtonShapeBox()
+		:NewtonShape()
+		,m_halfExtents(0.1f, 0.1f, 0.1f) 
+	{
+	}
+
+	virtual void set_data(const Variant &p_data);
+
+	Vector3 m_halfExtents;
+};
+
+
+
+class NewtonShapeRay: public NewtonShape
+{
+	public:
+	NewtonShapeRay()
+		:NewtonShape()
+		,m_length(0.0f)
+		,m_slips_on_slope(false)
+	{
+	}
+
+	virtual void set_data(const Variant& p_data);
+
+	real_t m_length;
+	bool m_slips_on_slope;
+};
+
 #endif
