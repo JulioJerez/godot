@@ -101,8 +101,7 @@ void NewtonPhysicsServer::body_attach_object_instance_id(RID p_body, ObjectID p_
 	NewtonBody* body = NULL;
 	if (m_bodyOwner.owns(p_body)) {
 		body = m_bodyOwner.getornull(p_body);
-	}
-	if (m_areaOwner.owns(p_body)) {
+	} else if (m_areaOwner.owns(p_body)) {
 		body = m_areaOwner.getornull(p_body);
 	}
 	ERR_FAIL_COND(!body);
