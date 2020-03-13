@@ -10,6 +10,7 @@
 */
 
 #include "newton_physics_server.h"
+#include "newtonArea.h"
 #include "newtonRigidBody.h"
 
 RID NewtonPhysicsServer::body_create(BodyMode p_mode, bool p_init_sleeping)
@@ -95,9 +96,18 @@ void NewtonPhysicsServer::body_set_shape_disabled(RID p_body, int p_shape_idx, b
 	dAssert(0);
 }
 
-void NewtonPhysicsServer::body_attach_object_instance_id(RID p_body, ObjectID p_ID)
+void NewtonPhysicsServer::body_attach_object_instance_id(RID p_body, ObjectID p_id)
 {
-	dAssert(0);
+	NewtonBody* body = NULL;
+	if (m_bodyOwner.owns(p_body)) {
+		body = m_bodyOwner.getornull(p_body);
+	}
+	if (m_areaOwner.owns(p_body)) {
+		body = m_areaOwner.getornull(p_body);
+	}
+	ERR_FAIL_COND(!body);
+
+	body->set_instance_id(p_id);
 }
 
 ObjectID NewtonPhysicsServer::body_get_object_instance_id(RID p_body) const

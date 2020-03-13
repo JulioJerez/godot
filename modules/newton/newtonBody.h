@@ -24,9 +24,12 @@ class NewtonBody: public newtonRID
 	void set_mode(PhysicsServer::BodyMode p_mode);
 	void set_state(PhysicsServer::BodyState p_state, const Variant &p_variant);
 
+	void set_instance_id(const ObjectID &p_instance_id);
+
 	protected:
 	PhysicsServer::BodyMode m_mode;
 	bool m_sleepMode;
+	ObjectID m_instance_id;
 };
 
 

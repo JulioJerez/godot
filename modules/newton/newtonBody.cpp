@@ -23,6 +23,11 @@ NewtonBody::~NewtonBody()
 {
 }
 
+void NewtonBody::set_instance_id(const ObjectID &p_instance_id)
+{
+	m_instance_id = p_instance_id;
+}
+
 void NewtonBody::set_mode(PhysicsServer::BodyMode p_mode)
 {
 	//can_integrate_forces = false;
