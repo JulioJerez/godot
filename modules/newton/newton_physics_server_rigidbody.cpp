@@ -10,12 +10,19 @@
 */
 
 #include "newton_physics_server.h"
-
+#include "newtonRigidBody.h"
 
 RID NewtonPhysicsServer::body_create(BodyMode p_mode, bool p_init_sleeping)
 {
-	dAssert(0);
-	return RID();
+	NewtonRigidBody* const body = new NewtonRigidBody;
+
+	body->set_mode(p_mode);
+	body->set_state(BODY_STATE_SLEEPING, p_init_sleeping);
+	
+	RID rid(m_bodyOwner.make_rid(body));
+	body->set_self(rid);
+	body->_set_physics_server(this);
+	return rid;
 }
 
 void NewtonPhysicsServer::body_set_space(RID p_body, RID p_space)

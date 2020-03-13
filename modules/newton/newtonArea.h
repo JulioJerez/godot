@@ -12,12 +12,12 @@
 #ifndef NEWTON_AREA_H
 #define NEWTON_AREA_H
 
-#include "newtonRID.h"
+#include "newtonBody.h"
 #include "servers/physics_server.h"
 #include "newton_physics_server.h"
 
 // basically these are triggers
-class NewtonArea: public newtonRID
+class NewtonArea: public NewtonBody
 {
 	public:
 	NewtonArea();

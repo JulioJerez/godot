@@ -24,9 +24,11 @@ static void dAssert(int xxx)
 	assert(0);
 }
 
+class NewtonBody;
 class NewtonArea;
 class NewtonShape;
 class NewtonSpace;
+class NewtonRigidBody;
 
 class NewtonPhysicsServer: public PhysicsServer
 {
@@ -304,6 +306,7 @@ class NewtonPhysicsServer: public PhysicsServer
 	mutable RID_PtrOwner<NewtonArea> m_areaOwner;
 	mutable RID_PtrOwner<NewtonSpace> m_spaceOwner;
 	mutable RID_PtrOwner<NewtonShape> m_shapeOwner;
+	mutable RID_PtrOwner<NewtonRigidBody> m_bodyOwner;
 	
 	bool m_active;
 };

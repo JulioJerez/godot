@@ -16,7 +16,7 @@
 
 // basically these are triggers 
 NewtonArea::NewtonArea() 
-	:newtonRID()
+	:NewtonBody()
 {
 	m_monitorable = true;
 	m_spOv_gravityVec = Vector3(0.0f, -1.0f, 0.0f);

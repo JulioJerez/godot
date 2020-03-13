@@ -21,9 +21,29 @@ class NewtonShape: public newtonRID
 	NewtonShape();
 	virtual ~NewtonShape();
 
+	virtual Variant get_data() const = 0;
 	virtual void set_data(const Variant &p_data) = 0;
 
-	private:
+	protected:
+	void notifyShapeChanged();
+
+};
+
+class NewtonShapeRay : public NewtonShape
+{
+	public:
+	NewtonShapeRay()
+		:NewtonShape()
+		, m_length(0.0f)
+		, m_slips_on_slope(false)
+	{
+	}
+
+	virtual Variant get_data() const;
+	virtual void set_data(const Variant& p_data);
+
+	real_t m_length;
+	bool m_slips_on_slope;
 };
 
 
@@ -36,27 +56,78 @@ class NewtonShapeBox: public NewtonShape
 	{
 	}
 
+	virtual Variant get_data() const;
 	virtual void set_data(const Variant &p_data);
 
 	Vector3 m_halfExtents;
 };
 
-
-
-class NewtonShapeRay: public NewtonShape
+class NewtonShapeCapsule: public NewtonShape
 {
 	public:
-	NewtonShapeRay()
+	NewtonShapeCapsule()
 		:NewtonShape()
-		,m_length(0.0f)
-		,m_slips_on_slope(false)
+		,m_height(0.25f)
+		,m_radius(0.25f)
 	{
 	}
 
+	virtual Variant get_data() const;
+	virtual void set_data(const Variant &p_data);
+
+	real_t m_height;
+	real_t m_radius;
+};
+
+class NewtonShapeCylinder: public NewtonShape
+{
+	public:
+	NewtonShapeCylinder()
+		:NewtonShape()
+		,m_height(0.25f)
+		,m_radius(0.25f)
+	{
+	}
+
+	virtual Variant get_data() const;
+	virtual void set_data(const Variant &p_data);
+
+	real_t m_height;
+	real_t m_radius;
+};
+
+
+class NewtonShapeConcavePolygon: public NewtonShape
+{
+	public:
+	NewtonShapeConcavePolygon()
+		:NewtonShape()
+	{
+	}
+
+	virtual Variant get_data() const;
 	virtual void set_data(const Variant& p_data);
 
-	real_t m_length;
-	bool m_slips_on_slope;
+	Vector<Vector3> m_vertices;
 };
+
+class NewtonShapeHeightMap: public NewtonShape
+{
+	public:
+	NewtonShapeHeightMap()
+		:NewtonShape()
+	{
+	}
+
+	virtual Variant get_data() const;
+	virtual void set_data(const Variant& p_data);
+
+	Vector<float> m_heights;
+	int m_width;
+	int m_depth;
+	real_t m_min_height;
+	real_t m_max_height;
+};
+
 
 #endif

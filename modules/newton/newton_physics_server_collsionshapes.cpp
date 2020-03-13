@@ -29,11 +29,28 @@ RID NewtonPhysicsServer::shape_create(ShapeType p_shape)
 		}
 		case SHAPE_CAPSULE:
 		{
-			dAssert(0);
-			//shape = new CapsuleShapeNewton;
+			shape = new NewtonShapeCapsule;
 			break;
-		} 
+		}
+		case SHAPE_CYLINDER:
+		{
+			shape = new NewtonShapeCylinder;
+			break;
+		}
 
+		case SHAPE_HEIGHTMAP:
+		{
+			shape = new NewtonShapeHeightMap;
+			break;
+		}
+
+
+		case SHAPE_CONVEX_POLYGON:
+		case SHAPE_CONCAVE_POLYGON:
+		{
+			shape = new NewtonShapeConcavePolygon;
+			break;
+		}
 
 		case SHAPE_PLANE: {
 			dAssert(0);
@@ -45,30 +62,7 @@ RID NewtonPhysicsServer::shape_create(ShapeType p_shape)
 			//shape = new SphereShapeNewton;
 			break;
 		}
-		case SHAPE_CYLINDER:
-		{
-			dAssert(0);
-			//shape = new CylinderShapeNewton;
-			break;
-		} 
-		case SHAPE_CONVEX_POLYGON:
-		{
-			dAssert(0);
-			//shape = new ConvexPolygonShapeNewton;
-			break;
-		} 
-		case SHAPE_CONCAVE_POLYGON:
-		{
-			dAssert(0);
-			//shape = new ConcavePolygonShapeNewton;
-			break;
-		} 
-		case SHAPE_HEIGHTMAP:
-		{
-			dAssert(0);
-			//shape = new HeightMapShapeNewton;
-			break;
-		} 
+		
 
 		case SHAPE_CUSTOM:
 		default:
@@ -102,8 +96,9 @@ PhysicsServer::ShapeType NewtonPhysicsServer::shape_get_type(RID p_shape) const
 
 Variant NewtonPhysicsServer::shape_get_data(RID p_shape) const
 {
-	dAssert(0);
-	return Variant();
+	NewtonShape* const shape = m_shapeOwner.getornull(p_shape);
+	ERR_FAIL_COND_V(!shape, Variant());
+	return shape->get_data();
 }
 
 void NewtonPhysicsServer::shape_set_margin(RID p_shape, real_t p_margin)
