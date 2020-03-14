@@ -10,6 +10,7 @@
 */
 
 #include "newtonShape.h"
+#include "newtonHeaders.h"
 #include "newton_physics_server.h"
 
 
@@ -22,16 +23,24 @@ RID NewtonPhysicsServer::shape_create(ShapeType p_shape)
 			shape = new NewtonShapeRay;
 			break;
 		}
+
+		case SHAPE_SPHERE: {
+			shape = new NewtonShapeSphere;
+			break;
+		}
+
 		case SHAPE_BOX:
 		{
 			shape = new NewtonShapeBox;
 			break;
 		}
+
 		case SHAPE_CAPSULE:
 		{
 			shape = new NewtonShapeCapsule;
 			break;
 		}
+
 		case SHAPE_CYLINDER:
 		{
 			shape = new NewtonShapeCylinder;
@@ -44,7 +53,6 @@ RID NewtonPhysicsServer::shape_create(ShapeType p_shape)
 			break;
 		}
 
-
 		case SHAPE_CONVEX_POLYGON:
 		case SHAPE_CONCAVE_POLYGON:
 		{
@@ -52,17 +60,12 @@ RID NewtonPhysicsServer::shape_create(ShapeType p_shape)
 			break;
 		}
 
-		case SHAPE_PLANE: {
-			dAssert(0);
-			//shape = new PlaneShapeNewton;
+		case SHAPE_PLANE:
+		{
+			shape = new NewtonShapePlane;
 			break;
 		}
-		case SHAPE_SPHERE: {
-			dAssert(0);
-			//shape = new SphereShapeNewton;
-			break;
-		}
-		
+	
 
 		case SHAPE_CUSTOM:
 		default:
@@ -85,12 +88,12 @@ void NewtonPhysicsServer::shape_set_data(RID p_shape, const Variant &p_data)
 
 void NewtonPhysicsServer::shape_set_custom_solver_bias(RID p_shape, real_t p_bias)
 {
-	dAssert(0);
+	nAssert(0);
 }
 
 PhysicsServer::ShapeType NewtonPhysicsServer::shape_get_type(RID p_shape) const
 {
-	dAssert(0);
+	nAssert(0);
 	return SHAPE_SPHERE;
 }
 
@@ -103,18 +106,18 @@ Variant NewtonPhysicsServer::shape_get_data(RID p_shape) const
 
 void NewtonPhysicsServer::shape_set_margin(RID p_shape, real_t p_margin)
 {
-	dAssert(0);
+	nAssert(0);
 }
 
 real_t NewtonPhysicsServer::shape_get_margin(RID p_shape) const
 {
-	dAssert(0);
+	nAssert(0);
 	return 0;
 }
 
 real_t NewtonPhysicsServer::shape_get_custom_solver_bias(RID p_shape) const
 {
-	dAssert(0);
+	nAssert(0);
 	return 0;
 }
 

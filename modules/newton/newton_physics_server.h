@@ -18,11 +18,11 @@
 #include "servers/physics_server.h"
 
 
-#include <assert.h>
-static void dAssert(int xxx)
-{
-	assert(0);
-}
+//#include <assert.h>
+//static void dAssert(int xxx)
+//{
+//	assert(0);
+//}
 
 class NewtonBody;
 class NewtonArea;

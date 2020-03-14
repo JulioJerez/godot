@@ -10,6 +10,7 @@
 */
 
 #include "newtonSpace.h"
+#include "newtonHeaders.h"
 #include "newton_physics_server.h"
 
 NewtonPhysicsServer::NewtonPhysicsServer()
@@ -59,13 +60,13 @@ void NewtonPhysicsServer::finish()
 
 bool NewtonPhysicsServer::is_flushing_queries() const
 {
-	dAssert(0);
+	nAssert(0);
 	return false;
 }
 
 int NewtonPhysicsServer::get_process_info(ProcessInfo p_info)
 {
-	dAssert(0);
+	nAssert(0);
 	return 0;
 }
 

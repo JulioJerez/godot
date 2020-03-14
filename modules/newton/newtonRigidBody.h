@@ -22,7 +22,29 @@ class NewtonRigidBody: public NewtonBody
 	NewtonRigidBody();
 	virtual ~NewtonRigidBody();
 
+	void set_param(PhysicsServer::BodyParameter p_param, real_t);
+	bool is_axis_locked(PhysicsServer::BodyAxis p_axis) const;
+	void set_force_integration_callback(ObjectID p_id, const StringName &p_method, const Variant &p_udata = Variant());
+
 	protected:
+	class ForceIntegrationCallback
+	{
+		public:
+		ForceIntegrationCallback()
+			:m_id(uint64_t(0))
+			,m_udata()
+			,m_method("")
+		{
+		}
+
+		ObjectID m_id;
+		Variant m_udata;
+		StringName m_method;
+	};
+
+	ForceIntegrationCallback m_forceCallback;
+	real_t m_mass;
+	uint16_t m_locked_axis;
 };
 
 

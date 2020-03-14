@@ -34,8 +34,8 @@ class NewtonShapeRay : public NewtonShape
 	public:
 	NewtonShapeRay()
 		:NewtonShape()
-		, m_length(0.0f)
-		, m_slips_on_slope(false)
+		,m_length(0.0f)
+		,m_slips_on_slope(false)
 	{
 	}
 
@@ -44,6 +44,21 @@ class NewtonShapeRay : public NewtonShape
 
 	real_t m_length;
 	bool m_slips_on_slope;
+};
+
+class NewtonShapeSphere: public NewtonShape
+{
+	public:
+	NewtonShapeSphere()
+		:NewtonShape()
+		,m_radius(0.1f)
+	{
+	}
+
+	virtual Variant get_data() const;
+	virtual void set_data(const Variant &p_data);
+
+	real_t m_radius;
 };
 
 
@@ -96,7 +111,6 @@ class NewtonShapeCylinder: public NewtonShape
 	real_t m_radius;
 };
 
-
 class NewtonShapeConcavePolygon: public NewtonShape
 {
 	public:
@@ -127,6 +141,20 @@ class NewtonShapeHeightMap: public NewtonShape
 	int m_depth;
 	real_t m_min_height;
 	real_t m_max_height;
+};
+
+class NewtonShapePlane: public NewtonShape
+{
+	public:
+	NewtonShapePlane()
+		:NewtonShape()
+	{
+	}
+
+	virtual Variant get_data() const;
+	virtual void set_data(const Variant& p_data);
+
+	Plane m_plane;
 };
 
 

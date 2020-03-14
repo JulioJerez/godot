@@ -10,6 +10,7 @@
 */
 
 #include "newtonShape.h"
+#include "newtonHeaders.h"
 #include "newton_physics_server.h"
 
 NewtonShape::NewtonShape() 
@@ -39,7 +40,18 @@ void NewtonShapeRay::set_data(const Variant& p_data)
 
 Variant NewtonShapeRay::get_data() const
 {
-	dAssert(0);
+	nAssert(0);
+	return Variant();
+}
+
+void NewtonShapeSphere::set_data(const Variant& p_data)
+{
+	m_radius = p_data;
+}
+
+Variant NewtonShapeSphere::get_data() const
+{
+	nAssert(0);
 	return Variant();
 }
 
@@ -50,7 +62,7 @@ void NewtonShapeBox::set_data(const Variant& p_data)
 
 Variant NewtonShapeBox::get_data() const
 {
-	dAssert(0);
+	nAssert(0);
 	return Variant();
 }
 
@@ -63,7 +75,7 @@ void NewtonShapeCapsule::set_data(const Variant& p_data)
 
 Variant NewtonShapeCapsule::get_data() const
 {
-	dAssert(0);
+	nAssert(0);
 	return Variant();
 }
 
@@ -76,7 +88,7 @@ void NewtonShapeCylinder::set_data(const Variant& p_data)
 
 Variant NewtonShapeCylinder::get_data() const
 {
-	dAssert(0);
+	nAssert(0);
 	return Variant();
 }
 
@@ -126,7 +138,7 @@ void NewtonShapeHeightMap::set_data(const Variant& p_data)
 			dst[i] = float (src[i]);
 		}
 	} else {
-		dAssert(0);
+		nAssert(0);
 		ERR_FAIL_MSG("Expected PackedFloat32Array or float Image.");
 	}
 
@@ -154,6 +166,19 @@ void NewtonShapeHeightMap::set_data(const Variant& p_data)
 
 Variant NewtonShapeHeightMap::get_data() const
 {
-	dAssert(0);
+	nAssert(0);
 	return Variant();
+}
+
+
+
+Variant NewtonShapePlane::get_data() const
+{
+	nAssert(0);
+	return Variant();
+}
+
+void NewtonShapePlane::set_data(const Variant& p_data)
+{
+	m_plane = p_data;
 }

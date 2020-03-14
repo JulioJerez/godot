@@ -10,9 +10,9 @@
 */
 
 #include "newtonSpace.h"
+#include "newtonHeaders.h"
 #include "newton_physics_server.h"
 
-#include <Newton.h>
 
 #define MAX_PHYSICS_SUB_STEPS	2
 
@@ -108,7 +108,7 @@ void NewtonSpace::set_param(PhysicsServer::AreaParameter p_param, const Variant 
 			break;
 
 		default:
-			dAssert(0);
+			nAssert(0);
 			WARN_PRINT("This set parameter (" + itos(p_param) + ") is ignored, the Newton doesn't support it.");
 			break;
 	}

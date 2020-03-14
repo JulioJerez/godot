@@ -11,8 +11,8 @@
 
 #include "newtonRID.h"
 #include "newtonSpace.h"
+#include "newtonHeaders.h"
 #include "newton_physics_server.h"
-
 
 RID NewtonPhysicsServer::space_create()
 {
@@ -49,35 +49,35 @@ bool NewtonPhysicsServer::space_is_active(RID p_space) const
 
 void NewtonPhysicsServer::space_set_param(RID p_space, SpaceParameter p_param, real_t p_value)
 {
-	dAssert(0);
+	nAssert(0);
 }
 
 real_t NewtonPhysicsServer::space_get_param(RID p_space, SpaceParameter p_param) const
 {
-	dAssert(0);
+	nAssert(0);
 	return 0;
 }
 
 PhysicsDirectSpaceState *NewtonPhysicsServer::space_get_direct_state(RID p_space)
 {
-	dAssert(0);
+	nAssert(0);
 	return NULL;
 }
 
 void NewtonPhysicsServer::space_set_debug_contacts(RID p_space, int p_max_contacts)
 {
-	dAssert(0);
+	nAssert(0);
 }
 
 Vector<Vector3> NewtonPhysicsServer::space_get_contacts(RID p_space) const
 {
-	dAssert(0);
+	nAssert(0);
 	return Vector<Vector3>();
 }
 
 int NewtonPhysicsServer::space_get_contact_count(RID p_space) const
 {
-	dAssert(0);
+	nAssert(0);
 	return 0;
 }
 

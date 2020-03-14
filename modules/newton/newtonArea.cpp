@@ -10,9 +10,8 @@
 */
 
 #include "newtonArea.h"
+#include "newtonHeaders.h"
 #include "newton_physics_server.h"
-
-#include <Newton.h>
 
 // basically these are triggers 
 NewtonArea::NewtonArea() 
@@ -71,7 +70,7 @@ void NewtonArea::set_param(PhysicsServer::AreaParameter p_param, const Variant &
 		//	set_spOv_gravityPointAttenuation(p_value);
 		//	break;
 		default:
-			dAssert(0);
+			nAssert(0);
 			WARN_PRINT("Area doesn't support this parameter in the Newton backend: " + itos(p_param));
 	}
 }

@@ -10,6 +10,7 @@
 */
 
 #include "newtonBody.h"
+#include "newtonHeaders.h"
 #include "newton_physics_server.h"
 
 NewtonBody::NewtonBody() 
@@ -45,20 +46,20 @@ void NewtonBody::set_mode(PhysicsServer::BodyMode p_mode)
 			//init_kinematic_utilities();
 			break;
 		case PhysicsServer::BODY_MODE_STATIC:
-			dAssert(0);
+			nAssert(0);
 			//mode = PhysicsServer::BODY_MODE_STATIC;
 			//reload_axis_lock();
 			//_internal_set_mass(0);
 			break;
 		case PhysicsServer::BODY_MODE_RIGID:
-			dAssert(0);
+			nAssert(0);
 			//mode = PhysicsServer::BODY_MODE_RIGID;
 			//reload_axis_lock();
 			//_internal_set_mass(0 == mass ? 1 : mass);
 			//scratch_space_override_modificator();
 			break;
 		case PhysicsServer::BODY_MODE_CHARACTER:
-			dAssert(0);
+			nAssert(0);
 			//mode = PhysicsServer::BODY_MODE_CHARACTER;
 			//reload_axis_lock();
 			//_internal_set_mass(0 == mass ? 1 : mass);
@@ -73,22 +74,22 @@ void NewtonBody::set_state(PhysicsServer::BodyState p_state, const Variant &p_va
 	switch (p_state)
 	{
 		case PhysicsServer::BODY_STATE_TRANSFORM:
-			dAssert(0);
+			nAssert(0);
 			//set_transform(p_variant);
 			break;
 		case PhysicsServer::BODY_STATE_LINEAR_VELOCITY:
-			dAssert(0);
+			nAssert(0);
 			//set_linear_velocity(p_variant);
 			break;
 		case PhysicsServer::BODY_STATE_ANGULAR_VELOCITY:
-			dAssert(0);
+			nAssert(0);
 			//set_angular_velocity(p_variant);
 			break;
 		case PhysicsServer::BODY_STATE_SLEEPING:
 			m_sleepMode = !bool(p_variant);
 			break;
 		case PhysicsServer::BODY_STATE_CAN_SLEEP:
-			dAssert(0);
+			nAssert(0);
 			//can_sleep = bool(p_variant);
 			//if (!can_sleep) {
 			//	// Can't sleep

@@ -18,6 +18,7 @@ if env['builtin_newton']:
     #add include path
     env_newton.Prepend (CPPPATH=["#thirdparty/newton/win32sdk/include/newton/"])
     env_newton.Prepend (CPPPATH=["#thirdparty/newton/win32sdk/include/dgCore/"])
+    env_newton.Prepend (CPPPATH=["#thirdparty/newton/win32sdk/include/dMath/"])
 
     #add static libraries path to main enviroment for linking
     if (env["bits"] == "64"):
