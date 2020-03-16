@@ -35,9 +35,9 @@ void NewtonPhysicsServer::body_attach_object_instance_id(RID p_body, ObjectID p_
 	} else if (m_areaOwner.owns(p_body)) {
 		body = m_areaOwner.getornull(p_body);
 	}
-	ERR_FAIL_COND(!body);
-
-	body->set_instance_id(p_id);
+	if (body) {
+		body->set_instance_id(p_id);
+	}
 }
 
 void NewtonPhysicsServer::body_set_force_integration_callback(RID p_body, Object *p_receiver, const StringName &p_method, const Variant &p_udata)

@@ -9,13 +9,13 @@
 * freely
 */
 
-#ifndef NEWTON_HEADER_INCLUDE_H
-#define NEWTON_HEADER_INCLUDE_H
+#include <assert.h>
+#include "newtonHeaders.h"
 
-#include <Newton.h>
-#include <dMathDefines.h>
+void nAssert(int test)
+{
+	assert(test);
+}
 
-void nAssert(int test);
 
 
-#endif
