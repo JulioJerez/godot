@@ -17,13 +17,6 @@
 #include "core/rid_owner.h"
 #include "servers/physics_server.h"
 
-
-//#include <assert.h>
-//static void dAssert(int xxx)
-//{
-//	assert(0);
-//}
-
 class NewtonBody;
 class NewtonArea;
 class NewtonShape;
@@ -63,12 +56,11 @@ class NewtonPhysicsServer: public PhysicsServer
 		InOutEventCallback() {}
 	};
 
-
-
 	NewtonPhysicsServer();
 	~NewtonPhysicsServer();
-
 	protected:
+
+	static void _bind_methods();
 
 	// MISC 
 	void free(RID p_rid);
@@ -111,7 +103,6 @@ class NewtonPhysicsServer: public PhysicsServer
 	void space_set_debug_contacts(RID p_space, int p_max_contacts);
 	Vector<Vector3> space_get_contacts(RID p_space) const;
 	int space_get_contact_count(RID p_space) const;
-
 
 	// AREA API 
 	//missing attenuation? missing better override?

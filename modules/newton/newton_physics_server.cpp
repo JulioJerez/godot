@@ -23,6 +23,13 @@ NewtonPhysicsServer::~NewtonPhysicsServer()
 {
 }
 
+void NewtonPhysicsServer::_bind_methods()
+{
+	//ClassDB::bind_method(D_METHOD("add", "value"), &Summator::add);
+	//ClassDB::bind_method(D_METHOD("reset"), &Summator::reset);
+	//ClassDB::bind_method(D_METHOD("get_total"), &Summator::get_total);
+}
+
 void NewtonPhysicsServer::free(RID p_rid)
 {
 	if (m_spaceOwner.owns(p_rid)) {
